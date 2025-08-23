@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Offers | Shree Chasma Ghar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      margin: 0; padding: 0;
+      color: #14213D;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Navbar copied from About page */
+   nav.navbar-custom {
+  background-color: #ffffff;
+  box-shadow: 0 2px 12px rgba(20, 33, 61, 0.1);
+  padding: 0.75rem 1.5rem;
+  font-smooth: always;
+}
+nav.navbar-custom .navbar-brand {
+  color: #14213D;
+  font-weight: 800;
+  font-size: 1.9rem;
+  text-decoration: none;
+  letter-spacing: 1.2px;
+}
+nav.navbar-custom .navbar-brand span {
+  color: #FCA311;
+  transition: color 0.3s ease;
+}
+nav.navbar-custom .navbar-brand:hover span {
+  color: #e89606;
+}
+nav.navbar-custom .nav-link {
+  color: #14213D !important;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0 14px;
+  transition: color 0.25s ease;
+  text-decoration: none;
+}
+nav.navbar-custom .nav-link:hover {
+  color: #FCA311 !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+nav.navbar-custom .btn-login {
+  background-color: #FCA311;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 28px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(252, 164, 23, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+nav.navbar-custom .btn-login a {
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+nav.navbar-custom .btn-login a:hover {
+  color: #f8f6f2f5;
+  text-decoration: none;
+}
+nav.navbar-custom .btn-login:hover {
+  background-color: #e89606;
+  box-shadow: 0 8px 20px rgba(232, 144, 6, 0.6);
+}
+.navbar-toggler {
+  border: none;
+  padding: 0.25rem 0.75rem;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28120,120,120,1%29' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+    /* Offers page main styles */
+    .offers-hero {
+      background: linear-gradient(135deg, #14213D, #000000);
+      color: white;
+      padding: 100px 20px 120px;
+      text-align: center;
+      border-radius: 0 0 60px 60px;
+      box-shadow: 0 8px 30px rgba(20, 33, 61, 0.6);
+    }
+    .offers-hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+    }
+    .offers-hero p {
+      font-size: 1.25rem;
+      opacity: 0.85;
+      margin-bottom: 0;
+    }
+    .offers-container {
+      max-width: 1200px;
+      margin: -80px auto 80px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      gap: 30px;
+    }
+    .offer-card {
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(252, 164, 23, 0.2);
+      padding: 30px 25px 40px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 360px;
+    }
+    .offer-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 60px rgba(252, 164, 23, 0.5);
+    }
+    .offer-icon {
+      font-size: 64px;
+      margin-bottom: 22px;
+      color: #FCA311;
+      transition: color 0.3s ease;
+    }
+    .offer-card:hover .offer-icon {
+      color: #e89606;
+    }
+    .offer-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #14213D;
+    }
+    .offer-desc {
+      font-size: 1.1rem;
+      color: #555;
+      flex-grow: 1;
+      margin-bottom: 25px;
+      line-height: 1.4;
+    }
+    .offer-code {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #14213D;
+      background-color: #FCA311;
+      padding: 12px 28px;
+      border-radius: 50px;
+      box-shadow: 0 6px 15px rgba(252, 164, 23, 0.45);
+      user-select: all;
+      margin-bottom: 0;
+      display: inline-block;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .offer-code:hover {
+      background-color: #e89606;
+      box-shadow: 0 9px 24px rgba(232, 144, 6, 0.6);
+    }
+    /* Footer */
+    footer {
+      background-color: #14213D;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: auto;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      Shree <span>Chasma Ghar</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav me-4">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'product_list' %}">Products</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'offer' %}">Offers</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+      <div class="btn-login">
+        <a href="{% url 'login' %}">Login</a> / <a href="{% url 'register' %}">Register</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Hero Section -->
+<section class="offers-hero">
+  <div class="container">
+    <h1>Exclusive Offers Just For You</h1>
+    <p>Save big on our premium eyewear collections. Hurry, limited time only!</p>
+  </div>
+</section>
+
+<!-- Offers Cards -->
+<section class="offers-container container">
+  <div class="offer-card">
+    <div class="offer-icon">🔥</div>
+    <h3 class="offer-title">20% OFF on Sunglasses</h3>
+    <p class="offer-desc">Use the code below to get a flat 20% discount on all sunglasses in our store.</p>
+    <div class="offer-code" onclick="copyCode('GOGGLES20')">GOGGLES20</div>
+  </div>
+  <div class="offer-card">
+    <div class="offer-icon">🕶️</div>
+    <h3 class="offer-title">Buy 1 Get 1 Free</h3>
+    <p class="offer-desc">Buy any frame and get another frame absolutely free. Perfect for gifting!</p>
+    <div class="offer-code" onclick="copyCode('BOGOFRAME')">BOGOFRAME</div>
+  </div>
+  <div class="offer-card">
+    <div class="offer-icon">🚚</div>
+    <h3 class="offer-title">Free Shipping</h3>
+    <p class="offer-desc">Enjoy free shipping on orders above ₹2000. Fast and safe delivery guaranteed.</p>
+    <div class="offer-code" onclick="copyCode('FREESHIP')">FREESHIP</div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Shree Chasma Ghar. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  function copyCode(code) {
+    navigator.clipboard.writeText(code).then(() => {
+      alert(`Offer code "${code}" copied to clipboard!`);
+    }, () => {
+      alert('Failed to copy the code. Please try manually.');
+    });
+  }
+</script>
+
+</body>
+</html>
