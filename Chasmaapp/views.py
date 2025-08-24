@@ -2,31 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import ContactMessage, Order, Product, UserAccount
 from django.contrib import messages
 
-# ---------------------- PRODUCT INIT ----------------------
-# (Sirf ek baar run hoga – migrate/runserver ke waqt)
-products = [
-    {'name': 'Dark Night Full Rim Square', 'price': 1999, 'side_img': 'img/1-side.webp'},
-    {'name': 'Crystal Transparent Full Rim Square', 'price': 2999, 'side_img': 'img/2-side.webp'},
-    {'name': 'Brown Transparent Full Rim Geometric', 'price': 3999, 'side_img': 'img/3-side.webp'},
-    {'name': 'Gray Transparent Full Rim Square', 'price': 2499, 'side_img': 'img/4-side.webp'},
-    {'name': 'Sky Blue Full Rim Square', 'price': 3499, 'side_img': 'img/5-side.webp'},
-    {'name': 'Silver Full Rim Round', 'price': 3799, 'side_img': 'img/6-side.webp'},
-]
-
-for p in products:
-    Product.objects.get_or_create(
-        name=p['name'],
-        price=p['price'],
-        side_img=p['side_img']
-    )
-print("✅ Products inserted successfully!")
 
 # ---------------------- AUTH SYSTEM ----------------------
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import UserAccount
-
 
 def register(request):
     if request.method == "POST":
@@ -35,7 +12,6 @@ def register(request):
         password = request.POST.get("password", "").strip()
         confirm_password = request.POST.get("confirm_password", "").strip()
 
-        # --- Validation ---
         if not fullname or not email or not password or not confirm_password:
             messages.error(request, "⚠️ All fields are required!")
             return render(request, "register.html")
@@ -48,7 +24,6 @@ def register(request):
             messages.error(request, "⚠️ Email already registered! Please login.")
             return render(request, "register.html")
 
-        # --- Save User ---
         UserAccount.objects.create(username=fullname, email=email, password=password)
         messages.success(request, f"🎉 Welcome {fullname}! Your account has been created successfully.")
         return redirect("login")
@@ -61,16 +36,13 @@ def login(request):
         username = request.POST.get("username", "").strip()
         password = request.POST.get("password", "").strip()
 
-        # --- Validation ---
         if not username or not password:
             messages.error(request, "⚠️ Both Username and Password are required!")
             return render(request, "login.html")
 
         try:
             user = UserAccount.objects.get(username=username, password=password)
-            
-            # ✅ Session me save karo
-            request.session["username"] = user.username  
+            request.session["username"] = user.username
             request.session["email"] = user.email
 
             messages.success(request, f"✅ Welcome back, {user.username}!")
@@ -83,14 +55,12 @@ def login(request):
     return render(request, "login.html")
 
 
-from django.contrib import messages
-
 def logout(request):
-    request.session.flush()   # ✅ session clear
-    storage = messages.get_messages(request)  # ✅ purane messages clear
+    request.session.flush()
+    storage = messages.get_messages(request)
     storage.used = True
     messages.success(request, "👋 You have been logged out successfully.")
-    return redirect("login")   # logout ke baad login page dikhao
+    return redirect("login")
 
 
 # ---------------------- MAIN PAGES ----------------------
